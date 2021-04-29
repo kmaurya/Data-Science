@@ -1,0 +1,63 @@
+Problem Statement:
+
+To check whether the wafer is defective or a quality wafer using classification models.
+(Wafer is a thin slice of semiconductor used for the fabrication of integrated circuits and,
+in photovoltaics, to manufacture solar cells.)
+
+Architecture:
+
+We are going to use a binary classifier where the prediction result will be good (+1) or bad (-1) based on the dataset
+provided by the client.
+
+1. Data Ingestion Process:
+
+        Data(Batches) for training ---> Data Validation ---> Data Transformation ---> Data Insertion to database
+
+2. Training pipeline:
+(After data insertion to database)
+        Export the data from database in CSV format ---> Data Preprocessing ---> Data Clustering --->
+        Get best model for each cluster ---> Hyperparameter Tuning ---> Model saving.
+
+3. Deployment to Cloud:
+(After saving the model.)
+        Cloud Setup ---> Pushing app to Cloud ---> Application Starts
+
+
+After the training and deployment of model is done where the model is now able to predict.
+We will like to use the model for the application purpose we have created.
+But while the user or the client is providing the next batches of data directly to the model,
+the model might not respond as per expectation because of some constraint while training or incorrect values provided.
+So we need to again perform few steps when any user is trying to apply give new data to the model as below:
+
+
+       Data from client to predict ---> Data Validation ---> Data Transformation ---> Data insertion to database --->
+       Exporting data from database to csv file ---> Data Preprocessing ---> Data clustering --->
+       Model calling specific cluster ---> Prediction ---> Export prediction to CSV file.
+
+Now, we are ready.
+But when ever there are new patterns added by the client we are going to train the model again(model re-training),
+based on the previous and the newly added feature.
+
+Apart from all this steps we also need to track and monitor each and every details of what steps our model is doing,
+so we need logging and monitoring task to be implemented.
+
+
+Application Flow:
+
+  main.py ---> 1. Validation : Reading data ---> Validation on columns ---> Transform the data ---> Insert data --->
+      |                      Export data to CSV(this will be the output which will be considered as input for second step)
+      |
+      |         2. Training : Read training data ---> Data Preprocessing ---> Cluster ---> Model Finder --->
+      |                       Model tuning ---> Deploy.
+      |
+      V
+    This main.py can be used for prediction as well.
+    Steps involved in prediction:
+    
+
+
+
+
+
+
+
