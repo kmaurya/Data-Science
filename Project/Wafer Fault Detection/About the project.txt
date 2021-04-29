@@ -53,7 +53,7 @@ Application Flow:
       V
     This main.py can be used for prediction as well.
     Steps involved in prediction:
-    
+    Validation (Similar to 1.) ---> Prediction.
 
 
 
